@@ -7,10 +7,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/compiler', compile);
+const process = fork('./grader.js');
 
 function compile(req, res, next) {
     console.log("new request");
-    const process = fork('./grader.js');
     process.send(req.body);
     res.send({"status": "ok"});
 }

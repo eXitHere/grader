@@ -78,8 +78,8 @@ const output = `3$.$5$.$8$.$100$.$100$.$100$.$100$.$100$.$1000000005$.$5`;
 
 async function process_ (sourceCode, input, output, scorePerCase) {
     //console.log(sourceCode);
-    return new Promise(function (resolve, reject) {
-        create(sourceCode, async function(err, filePathCpp) {          // create cpp file                 
+    return new Promise(async function (resolve, reject) {
+        await create(sourceCode, async function(err, filePathCpp) {          // create cpp file               
             if ( err ) {
                 //console.log(`Error in create : ${error}`);  
             }

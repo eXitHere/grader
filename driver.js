@@ -14,7 +14,7 @@ const sourceCode2 = `
         int a,b,i;
         scanf("%d%d",&a,&b);
         printf("%d",a+b);
-        //while(true);
+        while(true);
         return 0;
     }
 `
@@ -23,7 +23,7 @@ const sourceCode3 = `
     int main(){
         int a,b,i;
         scanf("%d%d",&a,&b);
-        printf("%d",a);
+        printf("%d",a-b);
         return 0;
     }
 `
@@ -57,7 +57,9 @@ TEST();
 async function TEST() {
     //hello();
     for(let i=0;i<10;i++){
+        console.log(await process_(testData1.data.sourceCode,testData1.data.input,testData1.data.output,10));
         console.log(await process_(testData2.data.sourceCode,testData2.data.input,testData2.data.output,10));
+        console.log(await process_(testData3.data.sourceCode,testData3.data.input,testData3.data.output,10));
     }
     
 }
