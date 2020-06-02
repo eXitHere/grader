@@ -26,7 +26,7 @@ async function create(Source, callback) {
 }
 
 async function build(filePathCpp, callback) {
-    await exec(`cd ${__dirname}/${pathCompiler} & g++.exe -std=c++14 ${__dirname}/${filePathCpp} -o ${__dirname}/compile_run/master`, (err, stdout, stderr) => {
+    await exec(`cd ${__dirname}/${pathCompiler} & g++ -std=c++14 ${__dirname}/${filePathCpp} -o ${__dirname}/compile_run/master`, (err, stdout, stderr) => {
         if( err ) {
             //console.log(`error: ${err.message} `);
             callback(`${err.message.split('error: ')[1]}`, null);
