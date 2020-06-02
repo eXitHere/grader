@@ -1,0 +1,29 @@
+{
+  "name": "grader_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Server.js",
+  "dependencies": {
+    "await-delay": "^1.0.0",
+    "child_process": "^1.0.2",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "sleep": "^6.2.0",
+    "tress": "^1.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eXitHere/grader.git"
+  },
+  "author": "eXit-Guy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eXitHere/grader/issues"
+  },
+  "homepage": "https://github.com/eXitHere/grader#readme"
+}
