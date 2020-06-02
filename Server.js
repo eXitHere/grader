@@ -9,6 +9,9 @@ app.use(bodyParser.json());
 app.get('/compiler', compile);
 const process = fork('./grader.js');
 
+/*
+TODO: -> req : {submitionId, userId, input, output, scorePerCase, sourceCode}
+*/
 function compile(req, res, next) {
     console.log("new request");
     process.send(req.body);

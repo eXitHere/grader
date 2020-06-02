@@ -1,4 +1,4 @@
-const {hello, process_ } = require('./compile_run'); 
+const {process_ } = require('./compile_run'); 
 const sourceCode1 = `
     #include<stdio.h>
     int main(){
