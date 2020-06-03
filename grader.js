@@ -27,7 +27,7 @@ async function run({submitionId, userId, input, output, scorePerCase, sourceCode
             method:  'post',
             body:    JSON.stringify(body),
             headers: { 'Content-Type': 'applicatio/json'},
-        }).then(res => res.JSON())
+        }).then(res => res.json())
         .then(json  => console.log(json));
     console.log(result);
 }
