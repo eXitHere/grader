@@ -1,5 +1,6 @@
 node_modules/
 .vscode/settings.json
-compile_run/
+compile_run/master.cpp
+compile_run/master.exe
 *.cpp
 Backend-dummy.js
