@@ -76,8 +76,8 @@ async function process_ (sourceCode, input, output, scorePerCase) {
             }
             await build(filePathCpp, async function(err, filePathExe) {      // create exe file
                 if( err ){                                                   //
-                    console.log(`Error in build : ` + err);                            // ex error `No such file or directory` .. `was no declared in this scope`
-                    var result       = "E";
+                    //console.log(`Error in build : ` + err);                            // ex error `No such file or directory` .. `was no declared in this scope`
+                    var result       = err;
                     var score        = -1;
                     resolve({result,score});
                 }
@@ -101,7 +101,7 @@ async function process_ (sourceCode, input, output, scorePerCase) {
                             score   += parseInt(scorePerCase);
                         }
                         else {
-                            result += result_[i]=='T' || result_ =='X'?result_[i]:'-';
+                            result += result_[i]=='T' || result_ =='X' ? result_[i] : '-';
                         }
                     }
                     //console.log({result,score});

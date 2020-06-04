@@ -52,7 +52,7 @@ async function init() {
         );
 
         if(score != -1) {
-            console.log( "result dummy : ",
+            console.log(
                 {result,
                 score}
             );
