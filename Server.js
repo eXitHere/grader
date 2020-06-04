@@ -1,7 +1,8 @@
-const express = require('express');
-const app = express();
+const express    = require('express');
+const app        = express();
 const bodyParser = require('body-parser');
-const { fork } = require('child_process');
+const { fork }   = require('child_process');
+const { init }   = require('./init.js');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -12,12 +13,18 @@ const process = fork('./grader.js');
 /*
 TODO: -> req : {submitionId, userId, input, output, scorePerCase, sourceCode}
 */
+
 function compile(req, res, next) {
     console.log("new request");
     process.send(req.body);
     res.send({"status": "ok"});
 }
 
-app.listen(3456, () => {
-    console.log('Server at port 3456.');
-})
+async function start() {
+    await init();
+    app.listen(3456, () => {
+        console.log('Server at port 3456.');
+    })
+}
+
+start();

@@ -5,8 +5,11 @@
   "main": "Server.js",
   "dependencies": {
     "await-delay": "^1.0.0",
+    "chalk": "^4.0.0",
     "child_process": "^1.0.2",
+    "clear": "^0.1.0",
     "express": "^4.17.1",
+    "figlet": "^1.4.0",
     "node-fetch": "^2.6.0",
     "sleep": "^6.2.0",
     "tress": "^1.1.4"
