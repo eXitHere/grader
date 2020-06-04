@@ -15,7 +15,7 @@ TODO: -> req : {submitionId, userId, input, output, scorePerCase, sourceCode}
 */
 
 function compile(req, res, next) {
-    console.log("new request");
+    //console.log("new request");
     process.send(req.body);
     res.send({"status": "ok"});
 }

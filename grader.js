@@ -34,12 +34,14 @@ async function run({
 		score,
 		time: 0,
 	};
-	//console.log(body);
+	console.log(body);
 	await fetch('http://localhost:5000/api/v1/grader_check/', {
 		method: 'post',
 		body: JSON.stringify(body),
 		headers: { 'Content-Type': 'application/json' },
 	})
 		.then((res) => res.json())
-		.then((json) => console.log(json));
+		.then(
+			/*(json) => console.log(json)*/
+		);
 }
