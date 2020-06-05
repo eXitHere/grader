@@ -6,7 +6,8 @@ var fs = require('fs');
 let pathCompiler = `MinGW/bin/`;
 
 module.exports = {
-    process_
+    process_,
+    getResult
 };
 
 /*
@@ -58,6 +59,36 @@ async function run(filePathExe, input) {
         child.stdin.setEncoding('utf-8');
         child.stdin.write(input);
         child.stdin.end();
+    });
+}
+
+async function getResult (sourceCode, input) {
+    return new Promise(async function (resolve, reject) {
+        await create(sourceCode, async function(err, filePathCpp) {          // create cpp file               
+            if ( err ) {
+                //console.log(`Error in create : ${error}`);  
+                var result       = "E";
+                var returnedCode        = -1;
+                resolve({result,returnedCode});
+            }
+            else {
+                //console.log(`Create success : ${filePathCpp}`);  
+            }
+            await build(filePathCpp, async function(err, filePathExe) {      // create exe file
+                if( err ){                                                   //
+                    //console.log(`Error in build : ` + err);                            // ex error `No such file or directory` .. `was no declared in this scope`
+                    var result       = err;
+                    var returnCode        = -1;
+                    resolve({result,returnCode});
+                }
+                else {
+                    //console.log(`Build success ` + filePathExe);
+                    var result       = await run(filePathExe, input);
+                    var returnCode        = 0;
+                    resolve ({result,returnCode});
+                }
+            });
+        });
     });
 }
 
