@@ -44,10 +44,19 @@ async function build(filePathCpp, callback) {
 }
 
 async function run(filePathExe, input) {
-    return new Promise(function (resolve, reject) {
-        const child = execFile(`${filePathExe}`, {timeout: 1000} , function (err, stdout, stderr) {
+    return new Promise(function (resolve, reject) {         // 1024 * 1024 * 64
+        const child = execFile(`${filePathExe}`, {timeout: 1000, maxBuffer: 1024 * 1024 * 64} , function (err, stdout, stderr) {
             if(err) {
-                resolve('T');
+                console.log(err);
+                if(err.code == 'ERR_CHILD_PROCESS_STDIO_MAXBUFFER') {
+                    resolve('M'); //* out of memory
+                }
+                else if(err.signal && err.signal == 'SIGTERM') {
+                    resolve('T') //* time out
+                }
+                else {
+                    resolve('?');
+                }
                 return;
             }
             if(stderr) {
@@ -67,8 +76,8 @@ async function getResult (sourceCode, input) {
         await create(sourceCode, async function(err, filePathCpp) {          // create cpp file               
             if ( err ) {
                 //console.log(`Error in create : ${error}`);  
-                var result       = "E";
-                var returnedCode        = -1;
+                var result          = "E";
+                var returnedCode    = -1;
                 resolve({result,returnedCode});
             }
             else {
@@ -78,13 +87,13 @@ async function getResult (sourceCode, input) {
                 if( err ){                                                   //
                     //console.log(`Error in build : ` + err);                            // ex error `No such file or directory` .. `was no declared in this scope`
                     var result       = err;
-                    var returnCode        = -1;
+                    var returnCode   = -1;
                     resolve({result,returnCode});
                 }
                 else {
                     //console.log(`Build success ` + filePathExe);
                     var result       = await run(filePathExe, input);
-                    var returnCode        = 0;
+                    var returnCode   = 0;
                     resolve ({result,returnCode});
                 }
             });
@@ -132,7 +141,8 @@ async function process_ (sourceCode, input, output, scorePerCase) {
                             score   += parseInt(scorePerCase);
                         }
                         else {
-                            result += result_[i]=='T' || result_ =='X' ? result_[i] : '-';
+                            result += (result_[i]=='T' || result_[i]=='M') 
+                                      || result_ =='X' ? result_[i] : '-';
                         }
                     }
                     //console.log({result,score});
