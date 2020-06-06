@@ -3,6 +3,7 @@ const app        = express();
 const bodyParser = require('body-parser');
 const { fork }   = require('child_process');
 const { init }   = require('./init.js');
+const chalk      = require('chalk');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -23,7 +24,7 @@ function compile(req, res, next) {
 async function start() {
     await init();
     app.listen(3456, () => {
-        console.log('Server at port 3456.');
+        console.log(chalk.blueBright('CompilerServer at port 4906.\nGraderServer at port 3456.'));
     })
 }
 

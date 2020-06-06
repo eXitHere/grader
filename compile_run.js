@@ -48,7 +48,7 @@ async function run(filePathExe, input) {
         const child = execFile(`${filePathExe}`, {timeout: 1000, maxBuffer: 1024 * 1024 * 64} , function (err, stdout, stderr) {
             if(err) {
                 console.log(err);
-                if(err.code == 'ERR_CHILD_PROCESS_STDIO_MAXBUFFER') {
+                if(err.code && err.code == 'ERR_CHILD_PROCESS_STDIO_MAXBUFFER') {
                     resolve('M'); //* out of memory
                 }
                 else if(err.signal && err.signal == 'SIGTERM') {
