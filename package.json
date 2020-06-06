@@ -20,7 +20,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently --kill-others \"node CompilerServer.js\" \"node Server.js\"",
-    "dev": "concurrently --kill-others \"node Server.js\" \"node Backend-dummy.js\""
+    "dev": "concurrently --kill-others \"node Backend-dummy.js\" \"node CompilerServer.js\" \"node Server.js\""
   },
   "repository": {
     "type": "git",

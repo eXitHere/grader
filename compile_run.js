@@ -14,8 +14,7 @@ module.exports = {
 * input source code
 * output path of file .cpp
 */
-async function create(Source, callback) {
-    let fileName = `master`;
+async function create(Source, fileName,callback) {
     await fs.writeFile(`./compile_run/${fileName}.cpp`, `${Source}`, function(err) {
         if(err) {
             callback(err, null);
@@ -27,7 +26,8 @@ async function create(Source, callback) {
 }
 
 async function build(filePathCpp, callback) {
-    await exec(`cd ${__dirname}/${pathCompiler} & g++ -std=c++14 ${__dirname}/${filePathCpp} -o ${__dirname}/compile_run/master`, (err, stdout, stderr) => {
+    let exeName = filePathCpp.split('/')[1].split('.')[0];
+    await exec(`cd ${__dirname}/${pathCompiler} & g++ -std=c++14 ${__dirname}/${filePathCpp} -o ${__dirname}/compile_run/${exeName}`, (err, stdout, stderr) => {
         if( err ) {
             //console.log(`error: ${err.message} `);
             callback(`${err.message.split('error: ')[1]}`, null);
@@ -39,7 +39,7 @@ async function build(filePathCpp, callback) {
             return;
         }
         //error(`${err.message}`);
-        callback(null, `${__dirname}/compile_run/master`);
+        callback(null, `${__dirname}/compile_run/${exeName}`);
     });
 }
 
@@ -73,7 +73,7 @@ async function run(filePathExe, input) {
 
 async function getResult (sourceCode, input) {
     return new Promise(async function (resolve, reject) {
-        await create(sourceCode, async function(err, filePathCpp) {          // create cpp file               
+        await create(sourceCode, 'compileOnly',async function(err, filePathCpp) {          // create cpp file               
             if ( err ) {
                 //console.log(`Error in create : ${error}`);  
                 var result          = "E";
@@ -104,7 +104,7 @@ async function getResult (sourceCode, input) {
 async function process_ (sourceCode, input, output, scorePerCase) {
     //console.log(sourceCode);
     return new Promise(async function (resolve, reject) {
-        await create(sourceCode, async function(err, filePathCpp) {          // create cpp file               
+        await create(sourceCode, 'master',async function(err, filePathCpp) {          // create cpp file               
             if ( err ) {
                 //console.log(`Error in create : ${error}`);  
                 var result       = "E";
