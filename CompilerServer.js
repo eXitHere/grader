@@ -1,7 +1,8 @@
 const express     = require('express');
 const app         = express();
 const bodyParser  = require('body-parser');
-const {getResult}  = require('./compile_run');
+const {getResult} = require('./compile_run');
+const clear       = require('clear');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -16,5 +17,7 @@ async function compile(req, res, next) {
 }
 
 app.listen(4906, () => {
-    console.log('Compiler at port 4906');
+    clear();
+    console.log();
+    console.log('CompilerServer : Ready');
 });

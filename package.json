@@ -14,10 +14,13 @@
     "sleep": "^6.2.0",
     "tress": "^1.1.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "concurrently --kill-others \"node CompilerServer.js\" \"node Server.js\"",
+    "dev": "concurrently --kill-others \"node Backend-dummy.js\" \"node CompilerServer.js\" \"node Server.js\""
   },
   "repository": {
     "type": "git",

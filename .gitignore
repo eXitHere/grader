@@ -2,5 +2,7 @@ node_modules/
 .vscode/settings.json
 compile_run/master.cpp
 compile_run/master.exe
+compile_run/compileOnly.cpp
+compile_run/compileOnly.exe
 *.cpp
 Backend-dummy.js

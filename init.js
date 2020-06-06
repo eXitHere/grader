@@ -26,7 +26,7 @@ async function init() {
     }
 
     return new Promise(async function(resolve, reject) {
-        clear();
+        //clear();
         console.log(
             chalk.yellow(
                 figlet.textSync('         Grader', { horizontalLayout: 'full' })
