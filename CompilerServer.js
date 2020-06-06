@@ -13,7 +13,10 @@ async function compile(req, res, next) {
     getResult(
         req.body.sourceCode,
         req.body.input
-    ).then(result => res.json(result));
+    ).then(result => {
+        console.log(`cpServer: ${JSON.stringify(result)}`);
+        res.json(result)
+    });
 }
 
 app.listen(4906, () => {

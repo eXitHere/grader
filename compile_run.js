@@ -134,7 +134,7 @@ async function process_ (sourceCode, input, output, scorePerCase) {
                         result_[idx] = await run(filePathExe, inputX);
                     });
                     await Promise.all(processX);
-                    for(let i=0;i<10;i++){
+                    for(let i=0;i<inputSplit.length;i++){
                         //console.log(" output " + outputSplit[i] + " result "+ result_[i]);
                         if (outputSplit[i] == result_[i]) {
                             result  += 'P';
