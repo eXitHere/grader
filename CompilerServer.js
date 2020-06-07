@@ -1,10 +1,14 @@
-const express     = require('express');
-const app         = express();
-const bodyParser  = require('body-parser');
-const {getResult} = require('./compile_run');
-const clear       = require('clear');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const {
+    getResult
+} = require('./compile_run');
+const clear = require('clear');
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 
 app.get('/compiler', compile);

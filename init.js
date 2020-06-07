@@ -1,7 +1,9 @@
 const chalk = require('chalk');
 const clear = require('clear');
 const figlet = require('figlet');
-const { process_ } = require('./compile_run');
+const {
+    process_
+} = require('./compile_run');
 
 module.exports = {
     init
@@ -25,37 +27,44 @@ async function init() {
         sourceCode: code,
     }
 
-    return new Promise(async function(resolve, reject) {
+    return new Promise(async function (resolve, reject) {
         //clear();
         console.log(
             chalk.yellow(
-                figlet.textSync('         Grader', { horizontalLayout: 'full' })
+                figlet.textSync('         Grader', {
+                    horizontalLayout: 'full'
+                })
             )
         );
         console.log(
             chalk.green(
-                figlet.textSync('[ eXit - Guy ]', { horizontalLayout: 'full' })
+                figlet.textSync('[ eXit - Guy ]', {
+                    horizontalLayout: 'full'
+                })
             )
         );
-    
-        const {result, score} = await process_ (
+
+        const {
+            result,
+            score
+        } = await process_(
             dummyJson.sourceCode,
             dummyJson.input,
             dummyJson.output,
             dummyJson.scorePerCase
         );
-        
+
         console.log(
             chalk.gray(
                 '\n\nTesting compiler ...'
             )
         );
 
-        if(score != -1) {
-            console.log(
-                {result,
-                score}
-            );
+        if (score != -1) {
+            console.log({
+                result,
+                score
+            });
 
             console.log(
                 chalk.green(
@@ -63,8 +72,7 @@ async function init() {
                 )
             );
             resolve();
-        }
-        else {
+        } else {
             console.log(
                 chalk.red(
                     `\n\nSomething wrong,`,
@@ -74,6 +82,6 @@ async function init() {
             process.exit(-1);
         }
 
-        
+
     });
 }

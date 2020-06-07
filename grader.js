@@ -1,4 +1,7 @@
-const { process_ } = require('./compile_run');
+const {
+	process_
+} = require('./compile_run');
+
 const fetch = require('node-fetch');
 
 var tress = require('tress');
@@ -20,7 +23,10 @@ async function run({
 	sourceCode,
 }) {
 	//console.log('new compiler!');
-	const { result, score } = await process_(
+	const {
+		result,
+		score
+	} = await process_(
 		sourceCode,
 		input,
 		output,
@@ -36,10 +42,12 @@ async function run({
 	};
 	//console.log(body);
 	await fetch('http://localhost:5000/api/v1/grader_check/', {
-		method: 'post',
-		body: JSON.stringify(body),
-		headers: { 'Content-Type': 'application/json' },
-	})
+			method: 'post',
+			body: JSON.stringify(body),
+			headers: {
+				'Content-Type': 'application/json'
+			},
+		})
 		.then((res) => {
 			res.json();
 		})
