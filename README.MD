@@ -1,4 +1,4 @@
-⚙️ Install guild
+⚙️ Install guild <br/>
 1: 📄 npm install
 2: 📄 npm start
 
@@ -20,5 +20,5 @@
 
 -   system(x)
 
-Library path for gnc (g++)
+Library path for gnc (g++) <br/>
 📂 lib\gcc\mingw32\6.3.0\include\c++ <-- ex. algorithm
