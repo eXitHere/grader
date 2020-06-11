@@ -1,4 +1,4 @@
-# ⚙️ Install guild <br/>
+# ⚙️ Installation guide <br/>
 
 ```
 1: 📄 npm install
@@ -7,7 +7,9 @@
 
 ## 💣💣 ถ้าระบบไม่สามารถ exec compiler ได้จะไม่สามารถรัน server ได้ 💣💣
 
-# 💻 Compiler (/dev/MinGW/bin)
+# 💻 Compiler <br/>
+
+[folder](../dev/compile_run)
 
 -   g++.exe (MinGW.org GCC-6.3.0-1) 6.3.0
 -   std = c++14
