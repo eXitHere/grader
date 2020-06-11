@@ -1,7 +1,7 @@
 ⚙️ # Install guild <br/>
 
 ```
-1: 📄 npm install <br/>
+1: 📄 npm install
 2: 📄 npm start
 ```
 
