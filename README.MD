@@ -23,10 +23,14 @@
 
 # 🛡 Block function (./compile_run/banned.h)
 
-    - windows.h (any)
-        -   system(x)
-    -
-    - sort
+-   windows.h (any)
+    -   system(x)
+-   algorithm
+    -   sort
+    -   max
+    -   min
+    -   next_permutation
+    -   swap
 
 # Library path for gnc (g++) <br/>
 
