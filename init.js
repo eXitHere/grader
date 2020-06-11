@@ -4,6 +4,10 @@ const figlet = require('figlet');
 const {
     process_
 } = require('./compile_run');
+const os = require('os');
+const {
+    exec
+} = require('child_process');
 
 module.exports = {
     init
@@ -28,6 +32,10 @@ async function init() {
     }
 
     return new Promise(async function (resolve, reject) {
+        if (os.type() != 'Linux') {
+            console.log('Support only linux os.');
+            process.exit(-1);
+        }
         //clear();
         console.log(
             chalk.yellow(
@@ -81,7 +89,6 @@ async function init() {
             );
             process.exit(-1);
         }
-
 
     });
 }

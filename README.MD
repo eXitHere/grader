@@ -13,7 +13,7 @@
 
 -   g++.exe (MinGW.org GCC-6.3.0-1) 6.3.0
 -   std = c++14
--   OS: 64 bit
+-   OS: Linux 64 bit
 -   Library standard for MinGW
 
 # 🛡 Block library (removed library)
@@ -31,6 +31,12 @@
     -   system(x)
 -   algorithm
     -   sort
+    -   stable_sort
+    -   partial_sort
+    -   search
+    -   search_n
+    -   reverse
+    -   reverse_copy
     -   max
     -   min
     -   next_permutation
