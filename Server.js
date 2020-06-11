@@ -10,9 +10,11 @@ const {
 
 const chalk = require('chalk');
 
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(
+    bodyParser.urlencoded({
+        extended: false,
+    })
+);
 app.use(bodyParser.json());
 
 app.get('/compiler', compile);
@@ -26,15 +28,19 @@ function compile(req, res, next) {
     //console.log("new request");
     process.send(req.body);
     res.send({
-        "status": "ok"
+        status: 'ok',
     });
 }
 
 async function start() {
     await init();
     app.listen(3456, () => {
-        console.log(chalk.blueBright('CompilerServer at port 4906.\nGraderServer at port 3456.'));
-    })
+        console.log(
+            chalk.blueBright(
+                'CompilerServer at port 4906.\nGraderServer at port 3456.'
+            )
+        );
+    });
 }
 
 start();

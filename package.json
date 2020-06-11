@@ -1,35 +1,37 @@
 {
-  "name": "grader_nodejs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "Server.js",
-  "dependencies": {
-    "await-delay": "^1.0.0",
-    "chalk": "^4.0.0",
-    "child_process": "^1.0.2",
-    "clear": "^0.1.0",
-    "express": "^4.17.1",
-    "figlet": "^1.4.0",
-    "node-fetch": "^2.6.0",
-    "sleep": "^6.2.0",
-    "tress": "^1.1.4"
-  },
-  "devDependencies": {
-    "concurrently": "^5.2.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently --kill-others \"node CompilerServer.js\" \"node Server.js\"",
-    "dev": "concurrently --kill-others \"node Backend-dummy.js\" \"node CompilerServer.js\" \"node Server.js\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/eXitHere/grader.git"
-  },
-  "author": "eXit-Guy",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/eXitHere/grader/issues"
-  },
-  "homepage": "https://github.com/eXitHere/grader#readme"
+    "name": "grader_nodejs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "Server.js",
+    "dependencies": {
+        "await-delay": "^1.0.0",
+        "chalk": "^4.0.0",
+        "child_process": "^1.0.2",
+        "clear": "^0.1.0",
+        "express": "^4.17.1",
+        "figlet": "^1.4.0",
+        "node-fetch": "^2.6.0",
+        "nodemon": "^2.0.4",
+        "sleep": "^6.2.0",
+        "tress": "^1.1.4",
+        "vm2": "^3.9.2"
+    },
+    "devDependencies": {
+        "concurrently": "^5.2.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "concurrently --kill-others \"node CompilerServer.js\" \"node Server.js\"",
+        "dev": "concurrently --kill-others \"nodemon Backend-dummy.js\" \"nodemon CompilerServer.js\" \"nodemon Server.js\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/eXitHere/grader.git"
+    },
+    "author": "eXit-Guy",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/eXitHere/grader/issues"
+    },
+    "homepage": "https://github.com/eXitHere/grader#readme"
 }
