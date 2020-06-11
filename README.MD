@@ -9,7 +9,7 @@
 
 # 💻 Compiler <br/>
 
-[folder](../dev/compile_run)
+[Folder](../dev/compile_run)
 
 -   g++.exe (MinGW.org GCC-6.3.0-1) 6.3.0
 -   std = c++14
@@ -23,7 +23,10 @@
 
 # 🛡 Block function (./compile_run/banned.h)
 
--   system(x)
+    - windows.h (any)
+        -   system(x)
+    -
+    - sort
 
 # Library path for gnc (g++) <br/>
 
