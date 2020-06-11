@@ -20,6 +20,10 @@
 
 -   algorithm
 -   bit/stdc++.h
+-   thread
+-   fstream
+-   atomic
+-   mutex
 
 # 🛡 Block function (./compile_run/banned.h)
 
@@ -31,6 +35,16 @@
     -   min
     -   next_permutation
     -   swap
+-   stdlib.h
+    -   qsort
+-   stdio.h
+    -   fopen
+    -   fclose
+    -   fread
+    -   fwrite
+-   cmath
+    -   fmax
+    -   fmin
 
 # Library path for gnc (g++) <br/>
 
