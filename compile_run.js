@@ -144,7 +144,7 @@ async function process_(sourceCode, input, output, scorePerCase) {
                 // create exe file
                 if (err) {
                     //
-                    console.log(`Error in build : ` + err); // ex error `No such file or directory` .. `was no declared in this scope`
+                    //console.log(`Error in build : ` + err); // ex error `No such file or directory` .. `was no declared in this scope`
                     //* spilt only two first line
                     var spilt_ = err.split(/\r?\n/);
                     if (spilt_.length > 2) var result = spilt_[0] + '\r\n' + spilt_[1];

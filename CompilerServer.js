@@ -18,7 +18,7 @@ async function compile(req, res, next) {
         req.body.sourceCode,
         req.body.input
     ).then(result => {
-        console.log(`cpServer: ${JSON.stringify(result)}`);
+        //console.log(`cpServer: ${JSON.stringify(result)}`);
         res.json(result)
     });
 }
