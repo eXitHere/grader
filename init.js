@@ -5,10 +5,6 @@ const {
     process_
 } = require('./compile_run');
 const os = require('os');
-const {
-    exec
-} = require('child_process');
-
 module.exports = {
     init
 };
