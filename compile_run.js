@@ -6,7 +6,7 @@ const {
     NodeVM
 } = require('vm2');
 var addBanned = require('./addBanned');
-
+const remove_comment = require('strip-comments');
 
 let pathCompiler = `MinGW/bin/`;
 
@@ -30,7 +30,7 @@ const vm = new NodeVM({
  */
 
 async function create(Source, fileName, callback) {
-    let newSource = addBanned(Source);
+    let newSource = addBanned(remove_comment(Source));
     await fs.writeFile(`./compile_run/${fileName}.cpp`, `${newSource}`, function (
         err
     ) {
@@ -44,6 +44,7 @@ async function create(Source, fileName, callback) {
 
 async function build(filePathCpp, callback) {
     let exeName = filePathCpp.split('/')[1].split('.')[0];
+    //console.log(`${pathCompiler}/g++.exe -w -std=c++14 ${filePathCpp} -o compile_run/${exeName}`)
     await exec(
         `${pathCompiler}/g++.exe -w -std=c++14 ${filePathCpp} -o compile_run/${exeName}`,
         (err, stdout, stderr) => {
@@ -80,9 +81,11 @@ async function getResult(sourceCode, input) {
             if (err) {
                 var result = 'E';
                 var returnedCode = -1;
+                var timeUsage = -1;
                 resolve({
                     result,
                     returnedCode,
+                    timeUsage
                 });
             } else {}
             await build(filePathCpp, async function (err, filePathExe) {
@@ -92,12 +95,14 @@ async function getResult(sourceCode, input) {
                     var spilt_x = err;
                     //console.log(spilt_x);
                     var spilt_ = spilt_x.split(/\r?\n/);
-                    if (spilt_.length > 2) var result = spilt_[0] + '\r\n' + spilt_[1];
+                    if (spilt_.length >= 2) var result = spilt_[0] + '\r\n' + spilt_[1] + '\r\n' + spilt_[2];
                     else var result = spilt_[0];
                     var returnCode = -1;
+                    var timeUsage = -1;
                     resolve({
                         result,
                         returnCode,
+                        timeUsage
                     });
                 } else {
                     var {
@@ -133,6 +138,7 @@ async function process_(sourceCode, input, output, scorePerCase) {
                 //console.log(`Error in create : ${error}`);
                 var result = 'E';
                 var score = -1;
+
                 resolve({
                     result,
                     score,
