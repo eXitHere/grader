@@ -91,7 +91,7 @@ async function getResult(sourceCode, input) {
             await build(filePathCpp, async function (err, filePathExe) {
                 // create exe file
                 if (err) {
-                    console.log(`Error in build : ` + err); // ex error `No such file or directory` .. `was no declared in this scope`
+                    //console.log(`Error in build : ` + err); // ex error `No such file or directory` .. `was no declared in this scope`
                     var spilt_x = err;
                     //console.log(spilt_x);
                     var spilt_ = spilt_x.split(/\r?\n/);
