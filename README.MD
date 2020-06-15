@@ -9,9 +9,7 @@
 
 # 💻 Compiler <br/>
 
-[Folder](../dev/compile_run)
-
--   g++.exe (MinGW.org GCC-6.3.0-1) 6.3.0
+-   require g++ (MinGW.org GCC-6.3.0-1) 6.3.0 (possible)
 -   std = c++14
 -   OS: Linux 64 bit
 -   Library standard for MinGW
@@ -51,7 +49,3 @@
 -   cmath
     -   fmax
     -   fmin
-
-# Library path for gnc (g++) <br/>
-
-📂 lib\gcc\mingw32\6.3.0\include\c++ <-- ex. algorithm

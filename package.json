@@ -24,8 +24,8 @@
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "concurrently --kill-others \"node CompilerServer.js\" \"node Server.js\"",
-		"dev": "concurrently --kill-others \"nodemon Backend-dummy.js\" \"nodemon CompilerServer.js\" \"nodemon Server.js\""
+		"start": "concurrently --kill-others \"node ./compiler/CompilerServer.js\" \"node ./grader/GraderServer.js\"",
+		"dev": "concurrently --kill-others \"nodemon ./test/Backend-dummy.js\" \"nodemon ./compiler/CompilerServer.js\" \"nodemon ./grader/GraderServer.js\""
 	},
 	"repository": {
 		"type": "git",

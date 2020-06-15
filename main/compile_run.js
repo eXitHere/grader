@@ -1,7 +1,11 @@
-const { exec } = require('child_process');
+const {
+	exec
+} = require('child_process');
 var fs = require('fs');
-const { NodeVM } = require('vm2');
-var addBanned = require('./addBanned');
+const {
+	NodeVM
+} = require('vm2');
+var addBanned = require('../module/addBanned.js');
 const remove_comment = require('strip-comments');
 
 module.exports = {
@@ -90,8 +94,7 @@ async function getResult(sourceCode, input, workerNumber) {
 					timeUsage,
 				});
 				return;
-			} else {
-			}
+			} else {}
 			await build(filePathCpp, async function (err, filePathExe) {
 				// create exe file
 				if (err) {
@@ -111,7 +114,10 @@ async function getResult(sourceCode, input, workerNumber) {
 						timeUsage,
 					});
 				} else {
-					var { result, timeUsage } = await run(filePathExe, input);
+					var {
+						result,
+						timeUsage
+					} = await run(filePathExe, input);
 					var returnCode = 0;
 					if (result == 'X') {
 						returnCode = -1;
@@ -149,8 +155,7 @@ async function process_(sourceCode, input, output, scorePerCase) {
 					timeUsage,
 				});
 				return;
-			} else {
-			}
+			} else {}
 			await build(filePathCpp, async function (err, filePathExe) {
 				// create exe file
 				if (err) {
@@ -186,9 +191,9 @@ async function process_(sourceCode, input, output, scorePerCase) {
 							result +=
 								result_[i].result == 'T' ||
 								result_[i].result == 'M' ||
-								result_[i].result == 'X'
-									? result_[i].result
-									: '-';
+								result_[i].result == 'X' ?
+								result_[i].result :
+								'-';
 						}
 					}
 					resolve({
