@@ -17,7 +17,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.get('/compiler', compile);
+app.post('/compiler', compile);
 const process = fork('./grader/grader.js');
 
 /*

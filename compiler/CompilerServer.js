@@ -37,7 +37,7 @@ app.use(queueList);
  * 		"timeUsage": 00
  *  }
  */
-app.get('/compiler', compiler); // Call for output only
+app.post('/compiler', compiler); // Call for output only
 
 let workerActive = [true, true];
 
