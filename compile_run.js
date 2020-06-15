@@ -75,9 +75,9 @@ async function run(filePathExe, input) {
     });
 }
 
-async function getResult(sourceCode, input) {
-    return new Promise(async function (resolve, reject) {
-        await create(sourceCode, 'compileOnly', async function (err, filePathCpp) {
+async function getResult(sourceCode, input, workerNumber) {
+    return await new Promise(async function (resolve, reject) {
+        await create(sourceCode, 'compileOnly_'+workerNumber , async function (err, filePathCpp) {
             if (err) {
                 var result = 'E';
                 var returnedCode = -1;

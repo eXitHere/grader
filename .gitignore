@@ -4,5 +4,9 @@ compile_run/master.cpp
 compile_run/master.exe
 compile_run/compileOnly.cpp
 compile_run/compileOnly.exe
+compile_run/compileOnly_0.cpp
+compile_run/compileOnly_0.exe
+compile_run/compileOnly_1.cpp
+compile_run/compileOnly_1.exe
 *.cpp
 Backend-dummy.js
