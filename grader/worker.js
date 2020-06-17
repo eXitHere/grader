@@ -10,7 +10,7 @@ module.exports = {
 
 async function process_(sourceCode, input, output, scorePerCase) {
 
-    var result;
+    var result = '';
     var score;
     var time;
 
@@ -52,7 +52,6 @@ async function process_(sourceCode, input, output, scorePerCase) {
                     var inputSplit = input.split('$.$');
                     var outputSplit = output.split('$.$');
                     var result_ = [];
-                    var result = '';
                     var score = 0;
                     var index = 0;
                     var time = -1;
@@ -62,17 +61,18 @@ async function process_(sourceCode, input, output, scorePerCase) {
                     });
                     await Promise.all(processX);
                     outputSplit.forEach(output_test => {
-                        if (output_test == result_[index++].result) {
+                        if (output_test == result_[index].result) {
                             result += 'P';
                             score += parseInt(scorePerCase);
                         } else {
                             result +=
-                                result_[i].result == 'T' ||
-                                result_[i].result == 'M' ||
-                                result_[i].result == 'X' ?
-                                result_[i].result :
+                                result_[index].result == 'T' ||
+                                result_[index].result == 'M' ||
+                                result_[index].result == 'X' ?
+                                result_[index].result :
                                 '-';
                         }
+                        index++;
                     });
                     resolve({
                         result,

@@ -11,7 +11,8 @@ const queueList = queue({
 const app = express();
 const bodyParser = require('body-parser');
 const {
-	getResult
+	getResult,
+	compileWithSample
 } = require('../compiler/worker.js');
 const clear = require('clear');
 
@@ -62,16 +63,31 @@ function compiler(req, res, next) {
 		ID = 1;
 	}
 	//console.log('new request in ' + ID);
-	getResult(req.body.sourceCode, req.body.input, ID)
-		.then((result) => {
-			workerActive[ID] = true;
-			//console.log(ID + ' result: ' + JSON.stringify(result));
-			res.json(result);
-		})
-		.catch((err) => {
-			workerActive[ID] = true;
-			res.json('something wrong' + err);
-		});
+	if (!req.body.output) {
+		getResult(req.body.sourceCode, req.body.input, ID)
+			.then((result) => {
+				workerActive[ID] = true;
+				//console.log(ID + ' result: ' + JSON.stringify(result));
+				res.json(result);
+			})
+			.catch((err) => {
+				workerActive[ID] = true;
+				res.json('something wrong' + err);
+			});
+	} else {
+		compileWithSample(req.body.sourceCode, req.body.input, ID, req.body.output)
+			.then((result) => {
+				workerActive[ID] = true;
+				//console.log(ID + ' result: ' + JSON.stringify(result));
+				res.json(result);
+			})
+			.catch((err) => {
+				workerActive[ID] = true;
+				res.json('something wrong' + err);
+			});
+	}
+
+
 }
 
 app.listen(4906, () => {
