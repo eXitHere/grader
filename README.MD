@@ -7,6 +7,20 @@
 
 ## 💣💣 ถ้าระบบไม่สามารถ exec compiler ได้จะไม่สามารถรัน server ได้ 💣💣
 
+# Exclusive Error code
+
+-   P : Pass
+-   -   : Fail
+-   C : create file error [ex. banned lib, create c/cpp fail]
+-   B : banned error [ex. banned function, function...]
+-   b : build fail
+-   L : Library banned
+-   F : Function banned
+-   M : out of memory [>64MB]
+-   T : timeout [1 Sec]
+-   R : runtime error [out of array ... bra bra]
+-   X : standard output error
+
 # 💻 Compiler <br/>
 
 -   require g++ (MinGW.org GCC-6.3.0-1) 6.3.0 (possible)

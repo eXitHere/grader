@@ -1,6 +1,7 @@
 const {
 	process_
-} = require('../main/compile_run.js');
+} = require('./worker.js');
+
 const fetch = require('node-fetch');
 var tress = require('tress');
 
@@ -23,7 +24,8 @@ async function run({
 	//console.log('new compiler!');
 	const {
 		result,
-		score
+		score,
+		time
 	} = await process_(
 		sourceCode,
 		input,
@@ -36,7 +38,7 @@ async function run({
 		userId,
 		result,
 		score,
-		time: 0,
+		time,
 	};
 	//console.log(body);
 	await fetch('http://localhost:5000/api/v1/grader_check/', {

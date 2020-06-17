@@ -3,7 +3,7 @@ const clear = require('clear');
 const figlet = require('figlet');
 const {
 	process_
-} = require('../main/compile_run.js');
+} = require('../grader/worker.js');
 const os = require('os');
 module.exports = {
 	init,

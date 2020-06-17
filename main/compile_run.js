@@ -9,8 +9,9 @@ var addBanned = require('../module/addBanned.js');
 const remove_comment = require('strip-comments');
 
 module.exports = {
-	process_,
-	getResult,
+	create,
+	build,
+	run
 };
 
 const vm = new NodeVM({
@@ -29,6 +30,7 @@ const vm = new NodeVM({
 
 async function create(Source, fileName, callback) {
 	let newSource = addBanned(remove_comment(Source));
+	//console.log(newSource);
 	if (newSource[0] == -1) callback(newSource[1], null); // -2: banned lib
 	await fs.writeFile(
 		`./compile_run/${fileName}.cpp`,
@@ -71,137 +73,6 @@ async function run(filePathExe, input) {
 			resolve({
 				result,
 				timeUsage,
-			});
-		});
-	});
-}
-
-async function getResult(sourceCode, input, workerNumber) {
-	return await new Promise(async function (resolve, reject) {
-		await create(sourceCode, 'compileOnly_' + workerNumber, async function (
-			err,
-			filePathCpp
-		) {
-			if (err) {
-				var result = 'E';
-				if (err.toString().includes('_is_a_banned_library'))
-					result = err;
-				var returnedCode = -1;
-				var timeUsage = -1;
-				resolve({
-					result,
-					returnedCode,
-					timeUsage,
-				});
-				return;
-			} else {}
-			await build(filePathCpp, async function (err, filePathExe) {
-				// create exe file
-				if (err) {
-					//console.log(`Error in build : ` + err); // ex error `No such file or directory` .. `was no declared in this scope`
-					var spilt_x = err;
-					//console.log(spilt_x);
-					var spilt_ = spilt_x.split(/\r?\n/);
-					if (spilt_.length >= 2)
-						var result =
-							spilt_[0] + '\r\n' + spilt_[1] + '\r\n' + spilt_[2];
-					else var result = spilt_[0];
-					var returnCode = -1;
-					var timeUsage = -1;
-					resolve({
-						result,
-						returnCode,
-						timeUsage,
-					});
-				} else {
-					var {
-						result,
-						timeUsage
-					} = await run(filePathExe, input);
-					var returnCode = 0;
-					if (result == 'X') {
-						returnCode = -1;
-						resolve({
-							result,
-							returnCode,
-							timeUsage,
-						});
-					} else {
-						resolve({
-							result,
-							returnCode,
-							timeUsage,
-						});
-					}
-				}
-			});
-		});
-	});
-}
-
-async function process_(sourceCode, input, output, scorePerCase) {
-	return new Promise(async function (resolve, reject) {
-		await create(sourceCode, 'master', async function (err, filePathCpp) {
-			// create cpp file
-			if (err) {
-				var result = 'E';
-				if (err.toString().includes('_is_a_banned_library'))
-					result = err;
-				var returnedCode = -1;
-				var timeUsage = -1;
-				resolve({
-					result,
-					returnedCode,
-					timeUsage,
-				});
-				return;
-			} else {}
-			await build(filePathCpp, async function (err, filePathExe) {
-				// create exe file
-				if (err) {
-					//
-					//console.log(`Error in build : ` + err); // ex error `No such file or directory` .. `was no declared in this scope`
-					//* spilt only two first line
-					var spilt_ = err.split(/\r?\n/);
-					if (spilt_.length > 2)
-						var result = spilt_[0] + '\r\n' + spilt_[1];
-					else var result = spilt_[0];
-					var score = -1;
-					resolve({
-						result,
-						score,
-					});
-				} else {
-					var inputSplit = input.split('$.$');
-					var outputSplit = output.split('$.$');
-					var result_ = [];
-					var result = '';
-					var score = 0;
-					const processX = inputSplit.map(async (inputX, idx) => {
-						result_[idx] = await run(filePathExe, inputX);
-					});
-					await Promise.all(processX);
-					var maxTime = Math.max(result.timeUsage);
-					for (let i = 0; i < inputSplit.length; i++) {
-						//console.log(" output " + outputSplit[i] + " result "+ result_[i]);
-						if (outputSplit[i] == result_[i].result) {
-							result += 'P';
-							score += parseInt(scorePerCase);
-						} else {
-							result +=
-								result_[i].result == 'T' ||
-								result_[i].result == 'M' ||
-								result_[i].result == 'X' ?
-								result_[i].result :
-								'-';
-						}
-					}
-					resolve({
-						result,
-						score,
-						maxTime,
-					});
-				}
 			});
 		});
 	});

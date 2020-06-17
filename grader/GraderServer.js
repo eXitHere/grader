@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const {
+	check,
+	validationResult
+} = require('express-validator');
+const {
 	fork
 } = require('child_process');
 const {
@@ -17,7 +21,14 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.post('/compiler', compile);
+app.post('/compiler', [
+	check('questionId').exists(),
+	check('userId').exists(),
+	check('input').exists(),
+	check('output').exists(),
+	check('scorePerCase').exists(),
+	check('sourceCode').exists(),
+], compile);
 const process = fork('./grader/grader.js');
 
 /*
@@ -25,6 +36,14 @@ TODO: -> req : {submitionId, userId, input, output, scorePerCase, sourceCode}
 */
 
 function compile(req, res, next) {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(422).json({
+			//errors: errors.array()
+			'status': "err",
+			'error': 'Reject, json wrong'
+		})
+	}
 	//console.log("new request");
 	process.send(req.body);
 	res.send({

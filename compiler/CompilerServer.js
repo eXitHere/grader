@@ -1,5 +1,9 @@
 const express = require('express');
 const queue = require('express-queue');
+const {
+	check,
+	validationResult
+} = require('express-validator');
 const queueList = queue({
 	activeLimit: 2,
 	queuedLimit: -1,
@@ -8,11 +12,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const {
 	getResult
-} = require('../main/compile_run.js');
+} = require('../compiler/worker.js');
 const clear = require('clear');
-const {
-	json
-} = require('express');
 
 app.use(
 	bodyParser.urlencoded({
@@ -37,11 +38,21 @@ app.use(queueList);
  * 		"timeUsage": 00
  *  }
  */
-app.post('/compiler', compiler); // Call for output only
+app.post('/compiler', [
+	check('input').exists(),
+	check('sourceCode').exists()
+], compiler); // Call for output only
 
 let workerActive = [true, true];
 
 function compiler(req, res, next) {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(422).json({
+			//errors: errors.array()
+			'error': 'Reject, json wrong'
+		})
+	}
 	let ID;
 	if (workerActive[0]) {
 		workerActive[0] = false;
