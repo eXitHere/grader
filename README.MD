@@ -9,11 +9,10 @@
 
 # Exclusive Error code
 
--   P : Pass
--   (-) : Fail
+-   P : pass
+-   (-) : fail
 -   C : create file error [ex. banned lib, create c/cpp fail]
--   B : banned error [ex. banned function, function...]
--   b : build fail
+-   B : build fail [ex. syntax error]
 -   L : Library banned
 -   F : Function banned
 -   M : out of memory [>64MB]

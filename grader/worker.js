@@ -21,7 +21,7 @@ async function process_(sourceCode, input, output, scorePerCase) {
 
                 result = 'C';
                 if (err.toString().includes('_is_a_banned_library'))
-                    result = 'B';
+                    result = 'L';
                 score = -1;
                 time = -1;
                 resolve({
@@ -36,13 +36,13 @@ async function process_(sourceCode, input, output, scorePerCase) {
                 // create exe file
                 if (err) {
                     //
-                    console.log(`Error in build : ` + err); // ex error `No such file or directory` .. `was no declared in this scope`
+                    //console.log(`Error in build : ` + err); // ex error `No such file or directory` .. `was no declared in this scope`
                     //* spilt only two first line
                     var spilt_ = err.split(/\r?\n/);
                     if (err.toString().includes('_is_a_banned_function'))
-                        result = 'B';
+                        result = 'F';
                     else
-                        result = 'b';
+                        result = 'B';
                     score = -1;
                     time = -1;
                     resolve({
