@@ -8,7 +8,9 @@
 		"chalk": "^4.0.0",
 		"child_process": "^1.0.2",
 		"clear": "^0.1.0",
+		"concurrently": "^5.2.0",
 		"express": "^4.17.1",
+		"express-queue": "0.0.12",
 		"figlet": "^1.4.0",
 		"node-fetch": "^2.6.0",
 		"nodemon": "^2.0.4",
@@ -22,8 +24,8 @@
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "concurrently --kill-others \"node CompilerServer.js\" \"node Server.js\"",
-		"dev": "concurrently --kill-others \"nodemon Backend-dummy.js\" \"nodemon CompilerServer.js\" \"nodemon Server.js\""
+		"start": "concurrently --kill-others \"node ./compiler/CompilerServer.js\" \"node ./grader/GraderServer.js\"",
+		"dev": "concurrently --kill-others \"nodemon ./test/Backend-dummy.js\" \"nodemon ./compiler/CompilerServer.js\" \"nodemon ./grader/GraderServer.js\""
 	},
 	"repository": {
 		"type": "git",
