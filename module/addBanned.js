@@ -2,7 +2,7 @@ const fs = require('fs');
 
 module.exports = function (code) {
     //Read file libraryBanned.BAN
-    const libBan = fs.readFileSync('./compile_run/libraryBanned.BAN').toString().split('\r\n');
+    const libBan = fs.readFileSync('./compile_run/libraryBanned.BAN').toString().split(/\r?\n/);
     //console.log(libBan)
     for (var lib of libBan) {
         //console.log(code.toString().includes(lib));
