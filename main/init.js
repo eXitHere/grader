@@ -47,7 +47,7 @@ async function init() {
 				})
 			)
 		);
-
+		console.log("V1.0.1");
 		const {
 			result,
 			score
