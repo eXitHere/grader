@@ -80,6 +80,7 @@ async function run(filePathExe, input) {
 
 const command = `
     module.exports = function(filePathExe,input , callback) {
+		try{
       const { execFile } = require('child_process');
       const child = execFile(filePathExe,
         {
@@ -101,9 +102,22 @@ const command = `
           }
           callback(stdout);
         }
-      );
-      child.stdin.setEncoding('utf-8');
-      child.stdin.write(input);
-      child.stdin.end();
+	  );
+	  child.stdin.pipe(child.stdin);
+	  child.stdin.setEncoding('utf-8');
+      try{
+		child.stdin.write(input);
+	  }
+	  catch(e){
+		child.stdin.end();
+	  }
+	  child.stdin.end();
+	  child.on('error', function(e){	
+		console.log(e)
+	  });
+	}
+	catch(e){
+		callback('E');
+	}
     };
     `;

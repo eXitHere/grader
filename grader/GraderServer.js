@@ -44,7 +44,7 @@ function compile(req, res, next) {
 			'error': 'Reject, json wrong'
 		})
 	}
-	//console.log("new request");
+	console.log("new request");
 	process.send(req.body);
 	res.send({
 		status: 'ok',
