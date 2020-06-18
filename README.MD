@@ -11,7 +11,7 @@
 
 -   P : pass
 -   (-) : fail
--   C : create file error [ex. banned lib, create c/cpp fail]
+-   C : create file error [ex. create c/cpp fail]
 -   B : build fail [ex. syntax error]
 -   L : Library banned
 -   F : Function banned
