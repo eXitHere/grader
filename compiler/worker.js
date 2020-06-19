@@ -135,7 +135,7 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
                                     result_[index].result == 'T' ||
                                     result_[index].result == 'M' ||
                                     result_[index].result == 'X' ?
-                                    result_[indexi].result :
+                                    result_[index].result :
                                     '-';
                             }
                             index++;
