@@ -1,21 +1,16 @@
 const express = require('express');
+var cors = require('cors');
 const queue = require('express-queue');
-const {
-	check,
-	validationResult
-} = require('express-validator');
+const { check, validationResult } = require('express-validator');
 const queueList = queue({
 	activeLimit: 2,
 	queuedLimit: -1,
 });
 const app = express();
 const bodyParser = require('body-parser');
-const {
-	getResult,
-	compileWithSample
-} = require('../compiler/worker.js');
+const { getResult, compileWithSample } = require('../compiler/worker.js');
 const clear = require('clear');
-
+app.use(cors());
 app.use(
 	bodyParser.urlencoded({
 		extended: false,
@@ -39,10 +34,11 @@ app.use(queueList);
  * 		"timeUsage": 00
  *  }
  */
-app.post('/compiler', [
-	check('input').exists(),
-	check('sourceCode').exists()
-], compiler); // Call for output only
+app.post(
+	'/compiler',
+	[check('input').exists(), check('sourceCode').exists()],
+	compiler
+); // Call for output only
 
 let workerActive = [true, true];
 
@@ -51,8 +47,8 @@ function compiler(req, res, next) {
 	if (!errors.isEmpty()) {
 		return res.status(422).json({
 			//errors: errors.array()
-			'error': 'Reject, json wrong'
-		})
+			error: 'Reject, json wrong',
+		});
 	}
 	let ID;
 	if (workerActive[0]) {
@@ -75,7 +71,12 @@ function compiler(req, res, next) {
 				res.json('something wrong' + err);
 			});
 	} else {
-		compileWithSample(req.body.sourceCode, req.body.input, ID, req.body.output)
+		compileWithSample(
+			req.body.sourceCode,
+			req.body.input,
+			ID,
+			req.body.output
+		)
 			.then((result) => {
 				workerActive[ID] = true;
 				//console.log(ID + ' result: ' + JSON.stringify(result));
@@ -86,8 +87,6 @@ function compiler(req, res, next) {
 				res.json('something wrong' + err);
 			});
 	}
-
-
 }
 
 app.listen(4906, () => {

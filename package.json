@@ -9,6 +9,7 @@
 		"child_process": "^1.0.2",
 		"clear": "^0.1.0",
 		"concurrently": "^5.2.0",
+		"cors": "^2.8.5",
 		"express": "^4.17.1",
 		"express-queue": "0.0.12",
 		"express-validator": "^6.5.0",
