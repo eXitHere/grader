@@ -1,5 +1,4 @@
 const express = require('express');
-var cors = require('cors');
 const queue = require('express-queue');
 const { check, validationResult } = require('express-validator');
 const queueList = queue({
@@ -10,30 +9,20 @@ const app = express();
 const bodyParser = require('body-parser');
 const { getResult, compileWithSample } = require('../compiler/worker.js');
 const clear = require('clear');
-app.use(cors());
-app.use(
-	bodyParser.urlencoded({
-		extended: false,
-	})
-);
+
+app.use(express.limit('1mb'));
+app.use(function (req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', 'https://grader.everthink.dev');
+	res.setHeader('Access-Control-Allow-Methods', 'POST');
+	res.setHeader('Access-Control-Allow-Header', 'X-Requested-With, Content-Type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	next();
+});
+
+app.use(bodyParser.urlencoded({extended: false,}));
 app.use(bodyParser.json());
 app.use(queueList);
 
-/*
- *  API
- *  ONLY get result
- *  GET http://localhost:4906/compiler
- *	{
- *		"input":      "xx",
- *		"sourceCode": "yy"
- *	}
- *  RES
- *  {
- * 		"result":    "xx",
- * 		"returnCode": "yy" (not from program exit but for frontend only),
- * 		"timeUsage": 00
- *  }
- */
 app.post(
 	'/compiler',
 	[check('input').exists(), check('sourceCode').exists()],

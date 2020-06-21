@@ -1,24 +1,13 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const {
-	check,
-	validationResult
-} = require('express-validator');
-const {
-	fork
-} = require('child_process');
-const {
-	init
-} = require('../main/init.js');
-
+const {check,validationResult} = require('express-validator');
+const {fork} = require('child_process');
+const {init} = require('../main/init.js');
 const chalk = require('chalk');
 
-app.use(
-	bodyParser.urlencoded({
-		extended: false,
-	})
-);
+app.use(express.limit('1mb'));
+app.use(bodyParser.urlencoded({extended: false,}));
 app.use(bodyParser.json());
 
 app.post('/compiler', [
@@ -29,6 +18,7 @@ app.post('/compiler', [
 	check('scorePerCase').exists(),
 	check('sourceCode').exists(),
 ], compile);
+
 const process = fork('./grader/grader.js');
 
 /*
