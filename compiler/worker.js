@@ -87,7 +87,7 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
                 if (err) {
                     result = 'C';
                     if (err.toString().includes('_is_a_banned_library'))
-                        result = 'B';
+                        result = 'L';
                     returnCode = -1;
                     timeUsage = -1;
                     resolve({
@@ -104,10 +104,14 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
                         //console.log(`Error in build : ` + err); // ex error `No such file or directory` .. `was no declared in this scope`
                         //* spilt only two first line
                         var spilt_ = err.split(/\r?\n/);
+                        console.log(err);
                         if (err.toString().includes('_is_a_banned_function'))
-                            result = 'B';
+                        {
+                            result = 'F';
+                            console.log("eiei");
+                        }
                         else
-                            result = 'b';
+                            result = 'B';
                         returnCode = -1;
                         timeUsage = -1;
                         resolve({

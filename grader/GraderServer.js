@@ -6,9 +6,8 @@ const {fork} = require('child_process');
 const {init} = require('../main/init.js');
 const chalk = require('chalk');
 
-app.use(express.limit('1mb'));
-app.use(bodyParser.urlencoded({extended: false,}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit:'1mb',extended: false,}));
+app.use(bodyParser.json({limit:'1mb'}));
 
 app.post('/compiler', [
 	check('questionId').exists(),
@@ -26,6 +25,7 @@ TODO: -> req : {submitionId, userId, input, output, scorePerCase, sourceCode}
 */
 
 function compile(req, res, next) {
+	console.log('new request');
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		return res.status(422).json({

@@ -10,7 +10,6 @@ const bodyParser = require('body-parser');
 const { getResult, compileWithSample } = require('../compiler/worker.js');
 const clear = require('clear');
 
-app.use(express.limit('1mb'));
 app.use(function (req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', 'https://grader.everthink.dev');
 	res.setHeader('Access-Control-Allow-Methods', 'POST');
@@ -19,8 +18,8 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.use(bodyParser.urlencoded({extended: false,}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit:'1mb', extended: false}));
+app.use(bodyParser.json({limit:'1mb'}));
 app.use(queueList);
 
 app.post(
@@ -47,7 +46,7 @@ function compiler(req, res, next) {
 		workerActive[1] = false;
 		ID = 1;
 	}
-	//console.log('new request in ' + ID);
+	console.log('new request in ' + ID);
 	if (!req.body.output) {
 		getResult(req.body.sourceCode, req.body.input, ID)
 			.then((result) => {
@@ -78,7 +77,7 @@ function compiler(req, res, next) {
 	}
 }
 
-app.listen(4906, () => {
+app.listen(80, () => {
 	clear();
 	console.log();
 	console.log('CompilerServer : Ready');
