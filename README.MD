@@ -24,6 +24,7 @@
 -   T : timeout [1 Sec]
 -   R : runtime error [out of array ... bra bra]
 -   X : standard output error
+-   W : wrong input/output from test case plz contact admin
 
 # 💻 Compiler <br/>
 
@@ -40,11 +41,27 @@
 -   fstream
 -   atomic
 -   mutex
+-   unistd.h
+-   signal.h
+-   unistd.h
 
-# 🛡 Block function (./compile_run/banned.h)
+# (อ้างอิงจาก http://www.delorie.com/djgpp/doc/libc/)
+
+## library ที่ไม่มีในระบบ
+
+-   conio.h
+-   dos.h
+-   debug/dbgcom.h
+-   dpmi.h
+-   go32.h
+-   io.h
+-   stdlib.h
+-   process.h
+
+# 🛡 Block function
 
 -   windows.h (any)
-    -   system(x)
+    -   system(x) (protect v.2)
 -   algorithm
     -   sort
     -   stable_sort
@@ -59,11 +76,17 @@
     -   swap
 -   stdlib.h
     -   qsort
+    -   kill (protect v.2)
+    -   atexit (protect v.2)
 -   stdio.h
     -   fopen
     -   fclose
     -   fread
     -   fwrite
+    -   fdopen
+    -   fprintf
 -   cmath
     -   fmax
     -   fmin
+
+protect v.2 คือการบล็อก library แล้ว block function ซ้ำ

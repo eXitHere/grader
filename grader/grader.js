@@ -41,8 +41,8 @@ async function run({
 		time,
 	};
 	console.log(body);
-	await fetch('http://10.148.0.2:5000/api/v1/grader_check/', {
-	//await fetch('http://localhost:5000/api/v1/grader_check/', {
+	//await fetch('http://10.148.0.2:5000/api/v1/grader_check/', {
+	await fetch('http://localhost:5000/api/v1/grader_check/', {
 		method: 'post',
 		body: JSON.stringify(body),
 		headers: {

@@ -25,7 +25,6 @@ TODO: -> req : {submitionId, userId, input, output, scorePerCase, sourceCode}
 */
 
 function compile(req, res, next) {
-	console.log('new request');
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		return res.status(422).json({

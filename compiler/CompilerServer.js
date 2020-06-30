@@ -11,9 +11,9 @@ const { getResult, compileWithSample } = require('../compiler/worker.js');
 const clear = require('clear');
 
 app.use(function (req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', 'https://grader.everthink.dev');
+	res.setHeader('Access-Control-Allow-Origin', 'https://grader.everythink.dev');
 	res.setHeader('Access-Control-Allow-Methods', 'POST');
-	res.setHeader('Access-Control-Allow-Header', 'X-Requested-With, Content-Type');
+	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
@@ -67,7 +67,7 @@ function compiler(req, res, next) {
 		)
 			.then((result) => {
 				workerActive[ID] = true;
-				//console.log(ID + ' result: ' + JSON.stringify(result));
+				console.log(ID + ' result: ' + JSON.stringify(result));
 				res.json(result);
 			})
 			.catch((err) => {
@@ -77,7 +77,7 @@ function compiler(req, res, next) {
 	}
 }
 
-app.listen(80, () => {
+app.listen(4906, () => {
 	clear();
 	console.log();
 	console.log('CompilerServer : Ready');

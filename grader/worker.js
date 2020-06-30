@@ -59,6 +59,16 @@ async function process_(sourceCode, input, output, scorePerCase) {
                     var score = 0;
                     var index = 0;
                     var time = -1;
+                    if(inputSplit.length != outputSplit.length) {
+                        result     = 'W'
+                        returnCode = -1
+                        resolve({
+                            result,
+                            returnCode,
+                            timeUsage,
+                        });
+                        return;
+                    }
                     const processX = inputSplit.map(async (inputX, index) => {
                         //console.log(inputX);
                         result_[index] = await run(filePathExe, inputX);
@@ -69,7 +79,8 @@ async function process_(sourceCode, input, output, scorePerCase) {
                     await Promise.all(processX);
                     //console.log(result_);
                     outputSplit.forEach(output_test => {
-                        //console.log(output_test);
+                        output_test           = output_test.trim();
+                        result_[index].result = result_[index].result.trim();
                         if (output_test == result_[index].result) {
                             result += 'P';
                             score += parseInt(scorePerCase);

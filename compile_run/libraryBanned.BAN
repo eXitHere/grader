@@ -4,3 +4,6 @@ thread
 fstream
 atomic
 mutex
+unistd.h
+signal.h
+unistd.h

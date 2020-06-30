@@ -126,12 +126,24 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
                         var index = 0;
                         timeUsage = -1;
                         returnCode = 0;
+                        if(inputSplit.length != outputSplit.length) {
+                            result     = 'W'
+                            returnCode = -1
+                            resolve({
+                                result,
+                                returnCode,
+                                timeUsage,
+                            });
+                            return;
+                        }
                         const processX = inputSplit.map(async (inputX, idx) => {
                             result_[idx] = await run(filePathExe, inputX);
                             if (result_[idx].timeUsage > timeUsage) timeUsage = result_[idx].timeUsage;
                         });
                         await Promise.all(processX);
                         outputSplit.forEach(output_test => {
+                            output_test            = output_test.trim();
+                            result_[index].result  = result_[index].result.trim();
                             if (output_test == result_[index].result) {
                                 result += 'P';
                             } else {
