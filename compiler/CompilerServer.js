@@ -77,7 +77,7 @@ function compiler(req, res, next) {
 	}
 }
 
-app.listen(4906, () => {
+app.listen(80, () => {
 	clear();
 	console.log();
 	console.log('CompilerServer : Ready');

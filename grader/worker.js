@@ -83,7 +83,7 @@ async function process_(sourceCode, input, output, scorePerCase) {
                         result_[index].result = result_[index].result.trim();
                         if (output_test == result_[index].result) {
                             result += 'P';
-                            score += parseInt(scorePerCase);
+                            score += parseInt(scorePerCase | 10);
                         } else {
                             result +=
                                 result_[index].result == 'T' ||

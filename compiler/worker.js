@@ -16,9 +16,9 @@ async function getResult(sourceCode, input, workerNumber) {
             filePathCpp
         ) {
             if (err) {
-                var result = 'E';
+                var result = 'C';
                 if (err.toString().includes('_is_a_banned_library'))
-                    result = err;
+                    result = 'L';
                 var returnedCode = -1;
                 var timeUsage = -1;
                 resolve({
@@ -108,7 +108,7 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
                         if (err.toString().includes('_is_a_banned_function'))
                         {
                             result = 'F';
-                            console.log("eiei");
+                            //console.log("eiei");
                         }
                         else
                             result = 'B';

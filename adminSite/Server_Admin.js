@@ -43,3 +43,5 @@ function getData(req, res, next) {
 app.listen(1000, () => {
     console.log('Admin site at port 1000');
 });
+
+console.log(parseInt("" | 10))
