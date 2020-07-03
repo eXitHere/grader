@@ -51,7 +51,7 @@ async function updateJsonQuestion() {
 	jsonQuestion = await fetchToBackend();
 }
 
-//updateJsonQuestion();
+updateJsonQuestion();
 
 function compiler(req, res, next) {
 	const errors = validationResult(req);
