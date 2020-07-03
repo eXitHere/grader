@@ -14,6 +14,7 @@
 		"express-queue": "0.0.12",
 		"express-validator": "^6.5.0",
 		"figlet": "^1.4.0",
+		"json-query": "^2.2.2",
 		"node-fetch": "^2.6.0",
 		"nodemon": "^2.0.4",
 		"pm2": "^4.4.0",

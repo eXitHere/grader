@@ -5,7 +5,6 @@ const {check,validationResult} = require('express-validator');
 const {fork} = require('child_process');
 const {init} = require('../main/init.js');
 const chalk = require('chalk');
-
 app.use(bodyParser.urlencoded({limit:'1mb',extended: false,}));
 app.use(bodyParser.json({limit:'1mb'}));
 

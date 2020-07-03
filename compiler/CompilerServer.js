@@ -9,6 +9,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const { getResult, compileWithSample } = require('../compiler/worker.js');
 const clear = require('clear');
+const {
+	fetchToBackend
+} = require('../main/testcase')
+var jsonQuery = require('json-query');
 
 app.use(function (req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', 'https://grader.everythink.dev');
@@ -24,11 +28,30 @@ app.use(queueList);
 
 app.post(
 	'/compiler',
-	[check('input').exists(), check('sourceCode').exists()],
+	[check('sourceCode').exists()],
 	compiler
-); // Call for output only
+);
+
+app.get(
+	'/restarttestcasebecausetestcaseisupdate',
+	updateCasetest
+)
 
 let workerActive = [true, true];
+
+async function updateCasetest(req, res, next) {
+	await updateJsonQuestion()
+	res.json({
+		'suscess': 'ok'
+	})
+}
+/*update json question */
+var jsonQuestion = {}
+async function updateJsonQuestion() {
+	jsonQuestion = await fetchToBackend();
+}
+
+//updateJsonQuestion();
 
 function compiler(req, res, next) {
 	const errors = validationResult(req);
@@ -47,7 +70,7 @@ function compiler(req, res, next) {
 		ID = 1;
 	}
 	console.log('new request in ' + ID);
-	if (!req.body.output) {
+	if (req.body.input) {
 		getResult(req.body.sourceCode, req.body.input, ID)
 			.then((result) => {
 				workerActive[ID] = true;
@@ -59,21 +82,33 @@ function compiler(req, res, next) {
 				res.json('something wrong' + err);
 			});
 	} else {
+		const _testcase = jsonQuery(`data[id=${req.body.questionId}]`, {data: jsonQuestion }).value
+		if (_testcase === null) {
+			res.json({
+				result:'W1',
+				returnCode:'-1',
+				timeUsage:'-1',
+			});
+			console.log('something wrong ' + 'id not found')
+			workerActive[ID] = true;
+			return;
+		}
+		//console.log(_testcase)
 		compileWithSample(
 			req.body.sourceCode,
-			req.body.input,
+			_testcase.input,
 			ID,
-			req.body.output
+			_testcase.output
 		)
-			.then((result) => {
-				workerActive[ID] = true;
-				console.log(ID + ' result: ' + JSON.stringify(result));
-				res.json(result);
-			})
-			.catch((err) => {
-				workerActive[ID] = true;
-				res.json('something wrong' + err);
-			});
+		.then((result) => {
+			workerActive[ID] = true;
+			console.log(ID + ' result: ' + JSON.stringify(result));
+			res.json(result);
+		})
+		.catch((err) => {
+			workerActive[ID] = true;
+			res.json('something wrong' + err);
+		});
 	}
 }
 
