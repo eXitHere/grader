@@ -57,7 +57,6 @@ async function init() {
 			dummyJson.output,
 			dummyJson.scorePerCase
 		);
-
 		console.log(chalk.gray('\n\nTesting compiler ...'));
 
 		if (score != -1) {
