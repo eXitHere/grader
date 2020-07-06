@@ -26,6 +26,7 @@
 -   X : standard output error
 -   W : wrong input/output from test case plz contact admin
 -   W1: questionId wrong
+-   * : Error from system
 # 💻 Compiler <br/>
 
 -   require g++ (MinGW.org GCC-6.3.0-1) 6.3.0 (possible)
