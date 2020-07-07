@@ -1,7 +1,8 @@
 const {
     create,
     build,
-    run
+    run,
+    checkAnswer
 } = require('../main/compile_run.js');
 
 module.exports = {
