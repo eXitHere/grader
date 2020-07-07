@@ -81,8 +81,8 @@ async function run(filePathExe, input) {
 
 
 function checkAnswer(master, ans) {
-    var masterSplit = master.split(/\r?\n/);
-    var ansSplit = ans.split(/\r?\n/);
+    var masterSplit = master.replace(/\n+$/, "").split(/\r?\n/);
+    var ansSplit = ans.replace(/\n+$/, "").split(/\r?\n/);
     if (masterSplit.length != ansSplit.length) {
         return false;
     }

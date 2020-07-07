@@ -1,4 +1,4 @@
-var test = "ABCDEF \nABCDEF    \n"
+var test = "ABCDEF \nABCDEF    \n\n\n\n"
 var test2 = "ABCDEF\nABCDEF\n"
 
 var ans = test.replace(/\s*$/,'');
@@ -7,8 +7,8 @@ if(checkAnswer(test,test2)) console.log("Same");
 else console.log("Not Same")
 
 function checkAnswer(master, ans) {
-    var masterSplit = master.split(/\r?\n/);
-    var ansSplit = ans.split(/\r?\n/);
+    var masterSplit = master.replace(/\n+$/, "").split(/\r?\n/);
+    var ansSplit = ans.replace(/\n+$/, "").split(/\r?\n/);
     if (masterSplit.length != ansSplit.length) {
         return false;
     }
