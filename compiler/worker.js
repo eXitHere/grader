@@ -1,7 +1,8 @@
 const {
     create,
     build,
-    run
+    run,
+    checkAnswer
 } = require('../main/compile_run.js');
 
 module.exports = {
@@ -131,7 +132,7 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
                         var outputSplit = output.split('$.$');
                         var result_ = [];
                         var index = 0;
-                        timeUsage = -1;
+                        timeUsage = -1; 
                         returnCode = 0;
                         if(inputSplit.length != outputSplit.length) {
                             result     = 'W'
@@ -149,9 +150,7 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
                         });
                         await Promise.all(processX);
                         outputSplit.forEach(output_test => {
-                            output_test            = output_test.trim();
-                            result_[index].result  = result_[index].result.trim();
-                            if (output_test == result_[index].result) {
+                            if (checkAnswer(output_test, result_[index].result)) {
                                 result += 'P';
                             } else {
                                 result +=

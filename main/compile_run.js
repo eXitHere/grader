@@ -11,7 +11,8 @@ const remove_comment = require('strip-comments');
 module.exports = {
 	create,
 	build,
-	run
+	run,
+	checkAnswer
 };
 
 const vm = new NodeVM({
@@ -76,6 +77,23 @@ async function run(filePathExe, input) {
 			});
 		});
 	});
+}
+
+
+function checkAnswer(master, ans) {
+    var masterSplit = master.split(/\r?\n/);
+    var ansSplit = ans.split(/\r?\n/);
+    if (masterSplit.length != ansSplit.length) {
+        return false;
+    }
+    else {
+        for(var index = 0; index < masterSplit.length; index++) {
+            if (masterSplit[index].replace(/\s*$/,'') != ansSplit[index].replace(/\s*$/,'')) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 const command = `
