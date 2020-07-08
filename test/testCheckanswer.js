@@ -1,11 +1,4 @@
-var test = "ABCDEF \nABCDEF    \n\n\n\n"
-var test2 = "ABCDEF\nABCDEF\n"
-
-var ans = test.replace(/\s*$/,'');
-
-/*if(checkAnswer(test,test2)) console.log("Same");
-else console.log("Not Same")
-*/
+const fs = require('fs');
 
 function checkAnswer(master, ans) {
     var masterSplit = master.trimEnd().split(/\r?\n/);
