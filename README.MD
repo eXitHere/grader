@@ -20,6 +20,7 @@
 -   B : build fail [ex. syntax error]
 -   L : Library banned
 -   F : Function banned
+-   O : out of buffer [1MB]
 -   M : out of memory [>64MB]
 -   T : timeout [1 Sec]
 -   R : runtime error [out of array ... bra bra]

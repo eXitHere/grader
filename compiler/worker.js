@@ -145,7 +145,7 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
                             return;
                         }
                         const processX = inputSplit.map(async (inputX, idx) => {
-                            result_[idx] = await run(filePathExe, inputX);
+                            result_[idx] = await run(`'main/run${workerNumber}.sh'`, inputX);
                             if (result_[idx].timeUsage > timeUsage) timeUsage = result_[idx].timeUsage;
                         });
                         await Promise.all(processX);

@@ -103,16 +103,21 @@ const command = `
       const child = execFile(filePathExe,
         {
           timeout: 1000,
-          maxBuffer: 1024 * 1024 * 64,
+          maxBuffer: 1024 * 1024,
         },
         function (err, stdout, stderr) {
           if (err) {
-            if (err.code && err.code == 'ERR_CHILD_PROCESS_STDIO_MAXBUFFER') {
-              callback('M'); //* out of memory
-            } else if (err.signal && err.signal == 'SIGTERM') {
-              callback('T'); //* time out
-            } else {
-              callback('R'); //* runtime error
+			if (err.code && err.code == 134) {
+				callback('M') //? out of memory 
+			}
+            else if (err.code && err.code == 'ERR_CHILD_PROCESS_STDIO_MAXBUFFER') {
+              	callback('O'); //* out of buffer
+			} 
+			else if (err.signal && err.signal == 'SIGTERM') {
+              	callback('T'); //* time out
+			} 
+			else {
+              	callback('R'); //* runtime error
             }
           }
           if (stderr) {
