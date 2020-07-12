@@ -88,7 +88,8 @@ async function process_(sourceCode, input, output, scorePerCase) {
                                 result +=
                                     result_[index].result == 'T' ||
                                     result_[index].result == 'M' ||
-                                    result_[index].result == 'X' ?
+                                    result_[index].result == 'X' ||
+                                    result_[index].result == 'O' ?
                                     result_[index].result :
                                     '-';
                             }
