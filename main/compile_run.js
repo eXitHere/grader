@@ -78,6 +78,9 @@ async function run(filePathExe, input) {
 			});
 		});
 		}
+		catch(e) {
+			console.log(e);
+		}
 	});
 }
 

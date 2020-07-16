@@ -72,8 +72,8 @@ async function process_(sourceCode, input, output, scorePerCase) {
                         }
 
                         const processX = inputSplit.map(async (inputX, index) => {
-                            //console.log(inputX);     filePathExe
-                            result_[index] = await run('main/run.sh', inputX);
+                            //console.log(inputX);      'main/run.sh'
+                            result_[index] = await run(filePathExe, inputX);
                             if (result_[index].timeUsage > time) time = result_[index].timeUsage;
                             //console.log(index, result_[index].timeUsage);
                         });
