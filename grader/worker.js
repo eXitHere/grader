@@ -108,7 +108,7 @@ async function process_(sourceCode, input, output, scorePerCase) {
             resolve({
                 'result': '*',
                 'returnCode': '-1',
-                'timeUsage': '*',
+                'timeUsage': '-1',
             });
         }
     });

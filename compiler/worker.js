@@ -75,7 +75,7 @@ async function getResult(sourceCode, input, workerNumber) {
         resolve({
             'result': '*',
             'returnCode': '-1',
-            'timeUsage': '*',
+            'timeUsage': '-1',
         });
     }
     });
@@ -145,7 +145,8 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
                             return;
                         }
                         const processX = inputSplit.map(async (inputX, idx) => {
-                            result_[idx] = await run(`main/run${workerNumber}.sh`, inputX);
+                            // `main/run${workerNumber}.sh`
+                            result_[idx] = await run(filePathExe, inputX);
                             if (result_[idx].timeUsage > timeUsage) timeUsage = result_[idx].timeUsage;
                         });
                         await Promise.all(processX);
@@ -175,7 +176,7 @@ async function compileWithSample(sourceCode, input, workerNumber, output) {
             resolve({
                 'result': '*',
                 'returnCode': '-1',
-                'timeUsage': '*',
+                'timeUsage': '-1',
             });
         }
     });

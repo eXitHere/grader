@@ -62,20 +62,22 @@ async function build(filePathCpp, callback) {
 			}
 			callback(null, `compile_run/${exeName}`);
 		}
-	);
-}
+	); 
+} 
 
 async function run(filePathExe, input) {
 	return new Promise(function (resolve, reject) {
-		const time_stamp = Date.now();
-		const vm_run = vm.run(command);
-		vm_run(filePathExe, input, (result) => {
+		try {
+			const time_stamp = Date.now();
+			const vm_run = vm.run(command);
+			vm_run(filePathExe, input, (result) => {
 			const timeUsage = (Date.now() - time_stamp) / 1000;
-			resolve({
-				result,
-				timeUsage,
+				resolve({
+					result,
+					timeUsage,
 			});
 		});
+		}
 	});
 }
 
