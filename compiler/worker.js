@@ -52,7 +52,7 @@ async function getResult(sourceCode, input, workerNumber) {
                     var {
                         result,
                         timeUsage
-                    } = await run(`main/run${workerNumber}.sh`, input);
+                    } = await run(filePathExe, input);
                     var returnCode = 0;
                     if (result == 'X') {
                         returnCode = -1;

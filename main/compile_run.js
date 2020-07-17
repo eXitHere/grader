@@ -1,10 +1,5 @@
-const {
-	exec
-} = require('child_process');
+const {exec} = require('child_process');
 var fs = require('fs');
-const {
-	NodeVM
-} = require('vm2');
 var addBanned = require('../module/addBanned.js');
 const remove_comment = require('strip-comments');
 
@@ -14,14 +9,6 @@ module.exports = {
 	run,
 	checkAnswer
 };
-
-const vm = new NodeVM({
-	sandbox: {},
-	require: {
-		context: 'sandbox',
-		builtin: ['child_process'],
-	},
-});
 
 /*
  * input source code
@@ -50,7 +37,7 @@ async function build(filePathCpp, callback) {
 	let exeName = filePathCpp.split('/')[1].split('.')[0];
 	//console.log(`${pathCompiler}/g++.exe -w -std=c++14 ${filePathCpp} -o compile_run/${exeName}`)
 	await exec(
-		`g++ -w -std=c++14 ${filePathCpp} -o compile_run/${exeName}`,
+		`g++ -w -std=c++14 ${filePathCpp} -o /var/local/lib/isolate/0/box/${exeName}`,
 		(err, stdout, stderr) => {
 			if (err) {
 				callback(`${err.message.split('error: ')[1]}`, null);
@@ -60,7 +47,7 @@ async function build(filePathCpp, callback) {
 				callback(`${stderr}`, null);
 				return;
 			}
-			callback(null, `compile_run/${exeName}`);
+			callback(null, `/var/local/lib/isolate/0/box//${exeName}`);
 		}
 	); 
 } 
@@ -68,15 +55,13 @@ async function build(filePathCpp, callback) {
 async function run(filePathExe, input) {
 	return new Promise(function (resolve, reject) {
 		try {
-			const time_stamp = Date.now();
-			const vm_run = vm.run(command);
-			vm_run(filePathExe, input, (result) => {
-			const timeUsage = (Date.now() - time_stamp) / 1000;
-				resolve({
-					result,
-					timeUsage,
+			exec('./run.sh')
+			result = "Hello";
+			timeUsage = 10;
+			resolve({
+				result,
+				timeUsage,
 			});
-		});
 		}
 		catch(e) {
 			console.log(e);

@@ -1,2 +1,1 @@
-ulimit -v 65536
-compile_run/master
+isolate --meta=/tmp/log.txt wall-time=1 --mem=65536 --run -- test
