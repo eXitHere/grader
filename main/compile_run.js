@@ -47,21 +47,23 @@ async function build(filePathCpp, callback) {
 				callback(`${stderr}`, null);
 				return;
 			}
-			callback(null, `/var/local/lib/isolate/0/box//${exeName}`);
+			callback(null, `/var/local/lib/isolate/0/box/${exeName}`);
 		}
 	); 
 } 
 
 async function run(filePathExe, input) {
-	return new Promise(function (resolve, reject) {
+	return new Promise(async function (resolve, reject) {
 		try {
-			exec('./run.sh')
-			result = "Hello";
-			timeUsage = 10;
-			resolve({
-				result,
-				timeUsage,
-			});
+			await exec('isolate wall-time=1 --mem=65536 --run -- ' + filePathExe, (err,stdout,stderr) => {
+				console.log(err,stdout,stderr)
+				result = stdout;
+				timeUsage = 10;
+				resolve({
+					result,
+					timeUsage,
+				});
+			})
 		}
 		catch(e) {
 			console.log(e);
